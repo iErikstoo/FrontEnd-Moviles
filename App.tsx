@@ -1,21 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { HomeScreen } from './src/views/home/home';
+import { RegisterScreen } from './src/views/register/Register';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export type RootStackParamList = {
+  HomeScreen: undefined,
+  RegisterScreen: undefined,
 }
 
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
+
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+        />
+        <Stack.Screen 
+          name="RegisterScreen" 
+          component={RegisterScreen}
+          options={{
+            headerShown: true,
+            title: 'Nuevo usuario'
+          }}  />
+        
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
